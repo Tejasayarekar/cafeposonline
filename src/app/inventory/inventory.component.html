@@ -1,0 +1,56 @@
+<div class="row">
+<div class="col-6">
+  <h2>Out Of Stock Product</h2>
+  <table class="table_rc">
+    <thead>
+      <tr>
+        <th>NO</th>
+        <th>Name</th>
+        <th>BUY PRICE</th>
+        <th>SELL PRICE</th>
+        <th>ITEM CODE</th>
+        <th>QTY</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let x of data.out_stock let i=index"  >
+        <td>{{i+1}}</td>
+         <td>{{x.pname}}</td>
+         <td>{{x.buy_price}}</td>
+         <td>{{x.sell_price}}</td>
+         <td>{{x.item_code}}</td>
+         <td>{{x.qty}}</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+</div>
+<div class="col-6">
+  <h2>Low Stock Product</h2>
+  <table class="table_rc">
+    <thead>
+      <tr>
+        <th>NO</th>
+        <th>Name</th>
+        <th>BUY PRICE</th>
+        <th>SELL PRICE</th>
+        <th>ITEM CODE</th>
+        <th>QTY</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let x of data.low_stock let i=index"  >
+        <td>{{i+1}}</td>
+         <td>{{x.pname}}</td>
+         <td>{{x.buy_price}}</td>
+         <td>{{x.sell_price}}</td>
+         <td>{{x.item_code}}</td>
+         <td>{{x.qty}}</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+</div>
+</div>

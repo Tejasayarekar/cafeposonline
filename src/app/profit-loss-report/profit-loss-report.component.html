@@ -1,0 +1,39 @@
+<div class="col">
+  <div class="row">
+    <div class="col-1">
+      <label>From Date</label>
+    </div>
+    <div class="col-2">
+      <div class="mb-3">
+        <input type="date" id="from_date" class="form-control form-control-date" placeholder="From Date" [(ngModel)]="data.from_date" name="from_date">
+      </div>
+    </div>
+    <div class="col-1">
+      <label>To Date</label>
+    </div>
+    <div class="col-2">
+      <div class="mb-3">
+        <input type="date" id="to_date" class="form-control form-control-date" placeholder="To Date" [(ngModel)]="data.to_date" name="to_date">
+      </div>
+    </div>
+    <div class="col-2">
+      <button class="btn btn-info" id="generate" (click)="generate_report()">Generate</button>
+    </div>
+  </div>
+
+  <div>
+    <div>
+      <div class="chart" id="chart" *ngIf="data.analysis1" >
+        <canvas baseChart
+                [data]="pieChartData"
+                [type]="pieChartType"
+                [options]="pieChartOptions"
+                [plugins]="pieChartPlugins">
+        </canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

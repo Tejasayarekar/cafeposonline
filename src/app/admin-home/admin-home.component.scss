@@ -1,0 +1,36 @@
+#main_page_div{
+  background-color:#ffffff;
+  position:relative;
+  height: auto;
+  min-height: 600px;
+  border-radius: 20px;
+  padding: 5px;
+  padding:15px;
+}
+
+#head_text{
+font-size: 0.9em;
+}
+@media only screen and (max-width: 600px) {
+
+.dekstop_heading
+{
+ display:none;
+}
+.mobile_heading
+{
+    display:block;
+}
+}
+
+@media  (min-width: 600px)  and (max-width: 4000px) {
+
+.dekstop_heading
+{
+display:block;
+}
+.mobile_heading
+{
+   display:none;
+}
+}

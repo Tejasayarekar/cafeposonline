@@ -1,0 +1,23 @@
+@media only screen and (max-width: 600px) {
+
+  .dekstop_heading
+  {
+   display:none;
+  }
+  .mobile_heading
+  {
+      display:block;
+  }
+}
+
+@media  (min-width: 600px)  and (max-width: 4000px) {
+
+ .dekstop_heading
+ {
+  display:block;
+ }
+ .mobile_heading
+ {
+     display:none;
+ }
+}

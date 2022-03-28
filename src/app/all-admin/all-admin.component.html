@@ -1,0 +1,150 @@
+<div class='col'>
+
+  <div class="row">
+
+  <div class="col-xl-3 col-lg-3">
+
+    <div class="col" id="box_design_1">
+      <div class="col" id='row_head'>
+        <div class="col text-center">
+          <h3 id='form_head_all'> Admin Details</h3>
+      </div>
+      </div>
+
+
+    <div class="col" id="box_1_sub_box">
+    <form id="form">
+       <div class='mb-3'>
+        <label>User Name</label>
+        <input type="text" class='form-control' id="pname" name="pname" [(ngModel)]="fd.uname" placeholder="Enter Full Name" >
+      </div>
+
+      <div class='mb-3'>
+        <label>EmailID</label>
+        <input type="email" class='form-control' id="email" name="email" [(ngModel)]="fd.email" placeholder="Enter Email Name" >
+      </div>
+
+      <div class='mb-3'>
+        <label>Password</label>
+        <input type="password" class='form-control' id="pass" name="pass" [(ngModel)]="fd.pass" placeholder="Enter Password Name" >
+      </div>
+
+      <div class='mb-3'>
+        <label>Type</label>
+        <select class="form-select" name="category" [(ngModel)]="fd.type">
+          <option value="0"><strong>Select Category</strong> </option>
+          <option value="{{x.id}}"  *ngFor="let x of data.type_list" >{{x.name}}</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <div class="col-9">
+            <div class='mb-3'>
+              <label>Select Access</label>
+              <select class="form-select" name="category" [(ngModel)]="fd.access">
+                <option value="0"><strong>Select Access</strong> </option>
+                <option value="{{x.id}}"  *ngFor="let x of data.access_list" >{{x.name}}</option>
+              </select>
+            </div>
+         </div>
+        <div class="col-3">
+          <div class='mb-3'>
+               <br>
+                <button class="btn btn-info" (click)="operation_access()">Add</button>
+           </div>
+        </div>
+      </div>
+
+    <div class='mb-3'>
+      <span class="bg bg-warning" id="acc_class" *ngFor="let x of fd.temp_acc_list let i=index" >{{x.name}} <img src="../..//assets/img/delete.png" id="sm_logo" (click)="operation_cancel(i)"></span>
+
+    </div>
+
+      <div class='mb-3'>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="add" id="flexCheckDefault" [(ngModel)]="fd.add">
+          <label class="form-check-label" for="flexCheckDefault">
+            Add Access
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="edit" id="flexCheckChecked" [(ngModel)]="fd.edit">
+          <label class="form-check-label" for="flexCheckChecked">
+            Edit Access
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="delete" id="flexCheckChecked" [(ngModel)]="fd.delete">
+          <label class="form-check-label" for="flexCheckChecked">
+            Delete Access
+          </label>
+        </div>
+
+
+      </div>
+
+
+  <div class='col text-center' id="btn_div">
+    <button type="button" class='btn btn-primary' *ngIf="data.add_btn" (click)="save()" ><Strong>Add</Strong></button>
+    <button type="button" class='btn btn-primary' *ngIf="data.update_btn" (click)="update()"><Strong>Update</Strong></button>
+    <button type="reset" class='btn btn-warning' (click)="reset()"><Strong>Reset</Strong></button>
+    <button type="reset" class='btn btn-danger' *ngIf="data.del_btn" (click)="delete()"><Strong>Delete</Strong></button>
+  </div>
+
+    </form>
+
+
+
+  </div>
+  </div>
+  </div>
+  <div class="col-xl-9 col-lg-9">
+    <div class="col">
+
+      <table class="table_rc" id="tb_data">
+        <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Type</th>
+            <th>Add,Edit,Delete</th>
+
+          </tr>
+         <tr *ngFor="let x of data.data_list  let i=index" class='row_data' (click)="edit(x.aid)">
+              <td>{{ i+ 1 }}</td>
+              <td>{{ x.uname }}</td>
+              <td>{{ x.email }}</td>
+              <td>{{ x.pass }}</td>
+              <td>{{ x.type }}</td>
+              <td>
+                <span class='badge rounded-pill text-dark'  [ngClass]="{ 'bg-success': x.acc_add=='true','bg-danger':x.acc_add=='false' }">{{ x.acc_add }}</span>
+                <span class='badge rounded-pill text-dark'  [ngClass]="{ 'bg-success': x.acc_edit=='true','bg-danger':x.acc_edit=='false' }">{{ x.acc_edit }}</span>
+                <span class='badge rounded-pill text-dark'  [ngClass]="{ 'bg-success': x.acc_delete=='true','bg-danger':x.acc_delete=='false' }">{{ x.acc_delete }}</span>
+            </td>
+
+            </tr>
+        </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+  </div>
+
+
+
+  </div>
+  </div>

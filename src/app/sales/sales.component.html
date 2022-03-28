@@ -1,0 +1,381 @@
+
+
+
+<div class="col-xl-12 col-lg-12">
+  <div class="col">
+    <button class="btn btn-primary" id="add_sales" (click)="open_pop()"><i class="fa fa-plus-circle" ></i><strong> Add Sales </strong></button><br>
+
+    <br>
+    <div class="row">
+      <div class="col-1">
+        <label>From Date</label>
+      </div>
+      <div class="col-2">
+        <div class="mb-3">
+          <input type="date" id="from_date" class="form-control form-control-date" placeholder="From Date" [(ngModel)]="data.from_date" name="from_date">
+        </div>
+      </div>
+      <div class="col-1">
+        <label>To Date</label>
+      </div>
+      <div class="col-2">
+        <div class="mb-3">
+          <input type="date" id="to_date" class="form-control form-control-date" placeholder="To Date" [(ngModel)]="data.to_date" name="to_date">
+        </div>
+      </div>
+      <div class="col-2">
+        <button class="btn btn-info" id="generate" (click)="generate_report()">Generate</button>
+      </div>
+    </div>
+    <div class="row">
+       <div class="col-6" id="">
+        <button (click)="load_sales_data_list()" class="btn btn-info"><strong><i class="fa fa-refresh" aria-hidden="true"></i>
+        </strong></button>
+            <span class="badge rounded-pill bg-warning text-dark" id='tot_rec' style="margin: 2px;">Total Record {{  data.tot_rec }}</span>
+       </div>
+
+       <div class="col-6 text-right">
+           <input type="text" id='search' placeholder="search data" class="form-control-sm col-xl-8 col-lg-8 col-md-8 col-sm-6" >
+       </div>
+
+      </div>
+    <table class="table_rc" id="tb_data">
+      <tr>
+          <th>No</th>
+          <th>Invoice</th>
+          <th>Table</th>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Discount</th>
+          <th>Mode</th>
+          <th>Status</th>
+          <th>Action</th>
+
+        </tr>
+       <tr *ngFor="let x of data.data_list  let i=index" class='row_data'>
+            <td>{{ i+ 1 }}</td>
+            <td>{{ x.b_prefix }}/{{ x.sid }}</td>
+            <td>{{ x.tid }}</td>
+            <td>{{ x.save_date_bill }}</td>
+            <td><strong><i class="fa fa-inr" aria-hidden="true"></i>{{ x.amount }}</strong></td>
+            <td><strong><i class="fa fa-inr" aria-hidden="true"></i>{{ x.discount }}</strong></td>
+            <td>
+              <span class='badge rounded-pill  text-dark' id="acc_class" [ngClass]="{ 'bg-info': x.pay_mode=='ONLINE','bg-warning':x.pay_mode=='SPLIT','bg-success':x.pay_mode=='CASH' }"> {{ x.pay_mode }}</span>
+            </td>
+            <td>
+              <span class='badge rounded-pill  text-dark' id="acc_class" [ngClass]="{ 'bg-success': x.payment_sts=='PAID','bg-danger':x.payment_sts=='PENDING' }"> {{ x.payment_sts }}</span>
+             </td>
+            <td>
+              <a  (click)="edit(x.sid)"><button class='btn btn-warning btn-sm' ><i class="fa fa-edit"></i></button> </a>
+              <a (click)="print_bill(x.sid)">  <button class='btn btn-info btn-sm' > <i class="fa fa-eye" aria-hidden="true"></i></button></a>
+              <a (click)="delete_data(x.sid)">  <button class='btn btn-danger btn-sm'><i class="fa fa-trash"></i></button></a>
+            </td>
+
+
+<td [hidden]="true">
+  <button printSectionId="prt{{x.sid}}" id="printer_btn{{x.sid}}" ngxPrint></button>
+  {{
+    init_printing(x.sid)
+  }}
+          <div class="col" id="prt{{x.sid}}" [innerHTML]="data.printer_design[x.sid]">
+          </div>
+
+</td>
+
+          </tr>
+      </table>
+
+
+
+  </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="col pop_up">
+
+      <div id="pop_modal" class="modal" [hidden]="data.pop_up">
+        <!-- Modal content -->
+
+          <div class="col-xl-12" id="modal_content">
+        <!--@@@ @@@!-->
+
+         <div class='col' id="pop_box" >
+          <div class="col" id='row_head'>
+             <div class="col text-center">
+
+               <h3 id='form_head_all'> Sales Invoice </h3>
+
+           </div>
+          </div>
+
+
+          <div class='col' id='row_sub_box'>
+
+
+
+
+
+
+<div class="row">
+    <div class="col-8">
+          <div class="row">
+              <div class="col-4">
+                    <div class="mb-3">
+                      <label>Table NO</label>
+                      <ng-autocomplete
+                      [data]="table_list"
+                      [searchKeyword]="keyword_table"
+                      (selected)='selectTable($event)'
+                      [itemTemplate]="itemTemplate"
+                      [(ngModel)]="data.tb_name"
+                      [notFoundTemplate]="notFoundTemplate" id="table_box">
+                    </ng-autocomplete>
+
+                    <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.tname"></a>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                    </div>
+              </div>
+              <div class="col-4">
+                <div class="mb-3">
+                  <label>Category</label>
+                  <ng-autocomplete
+                  [data]="category_list"
+                  [searchKeyword]="keyword_category"
+                  (selected)='selectCategory($event)'
+                  [itemTemplate]="categoryTemplate"
+                  [notFoundTemplate]="CategorynotFoundTemplate" id="category_box">
+                </ng-autocomplete>
+
+                <ng-template #categoryTemplate let-item>
+                <a [innerHTML]="item.cname"></a>
+                </ng-template>
+
+                <ng-template #CategorynotFoundTemplate let-notFound>
+                <div [innerHTML]="notFound"></div>
+                </ng-template>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="mb-3">
+                  <label>Product</label>
+                  <ng-autocomplete
+                      [data]="product_list"
+                      [searchKeyword]="keyword_product"
+                      (selected)='selectProduct($event)'
+                      [itemTemplate]="ProductTemplate"
+                      [notFoundTemplate]="ProductnotFoundTemplate" id="product_box">
+                    </ng-autocomplete>
+
+                <ng-template #ProductTemplate let-item>
+                <a [innerHTML]="item.pname"></a>
+                </ng-template>
+
+                <ng-template #ProductnotFoundTemplate let-notFound>
+                <div [innerHTML]="notFound"></div>
+                </ng-template>
+                </div>
+              </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-4">
+              <div class="row">
+                <div class="col"><label>Category List</label></div>
+              </div>
+              <img [src]="x.c_img" *ngFor="let x of category_list" id="category_img" (click)="selectCategory(x)">
+            </div>
+            <div class="col-8">
+              <div class="row">
+                <div class="col"><label>Product List</label></div>
+              </div>
+              <img [src]="x.p_img" *ngFor="let x of temp_product_list" id="product_img" (click)="selectProduct(x)">
+            </div>
+
+
+          </div>
+
+
+
+
+
+        </div>
+
+
+    <div class="col-4" id="temp_table">
+      <!--div class="row">
+        <div class="col-6">
+          <div class="mb-3 ">
+            <label>Mobile NO</label>
+            <input type="text" class="form-control" name="cust_mob" placeholder="Customer Mobile" >
+          </div>
+
+        </div>
+        <div class="col-6">
+          <div class="mb-3 ">
+            <label>Customer Name</label>
+            <input type="text" class="form-control" name="cust_name" placeholder="Customer name" >
+          </div>
+        </div>
+      </!--div!-->
+      <table >
+       <thead>
+        <tr>
+            <th class="col-1">NO</th>
+            <th>Description</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Act.</th>
+        </tr>
+       </thead>
+      <tbody>
+          <tr *ngFor="let x of temp_data_list let i=index" >
+            <td class="col-1">{{ i+1 }}</td>
+            <td>{{ x.pname }}</td>
+            <td>
+              <input type="number" id="qty_text" [(ngModel)]="data.qty[i]" (change)="qty_change(i)" class="col-7 form-control-sm text-center" value="{{x.qty}}">
+            </td>
+            <td><i class="fa fa-inr" aria-hidden="true"></i> {{ x.sell_price }}</td>
+            <td><i class="fa fa-inr" aria-hidden="true"></i>{{  (x.qty)*(x.sell_price) }}</td>
+            <td><button class="btn" (click)="delete_temp_product(i)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+          </tr>
+          <tr *ngIf="temp_data_list.length>0" >
+            <td colspan="3" class="text-right">Total</td>
+            <td colspan="3" class="text-right"><i class="fa fa-inr" aria-hidden="true"></i>{{data.tot}}</td>
+          </tr>
+          <tr *ngIf="temp_data_list.length>0">
+            <td colspan="3" class="text-right">Discount</td>
+            <td colspan="3" class="text-right"><input type="number" id="discount_text" [(ngModel)]="data.discount" class="col- form-control-sm text-right" placeholder="Discount"></td>
+          </tr>
+          <tr *ngIf="temp_data_list.length>0">
+            <td colspan="3" class="text-right">Amount To Pay</td>
+            <td colspan="3" class="text-right"><i class="fa fa-inr" aria-hidden="true"></i>{{ (data.tot)-(data.discount)}}</td>
+          </tr>
+      </tbody>
+
+      </table>
+      <div class="row">
+        <div class="col-6">
+          <label>Payment Mode</label>
+          <div class="row">
+
+                    <div class="col-4">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" (change)="mode_change('cash')" [(ngModel)]="data.cash" id="defaultCheck1">
+                        <label class="form-check-label" for="defaultCheck1">
+                        Cash
+                        </label>
+                      </div>
+                    </div>
+                      <div class="col-4">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" (change)="mode_change('online')" [(ngModel)]="data.online" id="defaultCheck1">
+                          <label class="form-check-label" for="defaultCheck1">
+                            Online
+                          </label>
+                        </div>
+                      </div>
+                        <div class="col-4">
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" (change)="mode_change('split')" [(ngModel)]="data.split" id="defaultCheck1">
+                              <label class="form-check-label" for="defaultCheck1">
+                                Split
+                              </label>
+                            </div>
+                          </div>
+                  </div>
+                  <div class="col" *ngIf="data.split" >
+                    <div class="row">
+                      <div class="col-6">
+                          <div class="mb-3 form-group">
+                            <label>Cash Payment</label>
+                            <input type="text" class="" [(ngModel)]="data.cash_received" placeholder="cash">
+                          </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="mb-3 form-group">
+                          <label>Online Payment</label>
+                          <input type="text" class="" [(ngModel)]="data.online_received" placeholder="online">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+        </div>
+
+        <div class="col-6">
+          <label>Payment Status</label>
+          <div class="row">
+                    <div class="col-4">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox"  (change)="status_change('paid')" [(ngModel)]="data.paid" id="paid">
+                        <label class="form-check-label" for="paid">
+                        Paid
+                        </label>
+                      </div>
+                    </div>
+                      <div class="col-4">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" (change)="status_change('pending')" [(ngModel)]="data.pending" id="pending">
+                          <label class="form-check-label" for="pending">
+                            Pending
+                          </label>
+                        </div>
+                      </div>
+
+                  </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="con text-center">
+          <button type="button" class="btn btn-primary pop_btn" [hidden]="data.add_btn" (click)="add()" name="Add" id="add_btn" data-toggle="tooltip" data-placement="right" title="Click To Save Button">Save</button>
+          <button type="button" class="btn btn-primary pop_btn" [hidden]="data.update_btn" (click)="update()" name="update" id="update_btn" data-toggle="tooltip" data-placement="right" title="Click To Update Records">Update</button>
+          <button type="button" class="btn btn-primary pop_btn" [hidden]="data.reload_btn" (click)="reload()" name="update" id="reload_btn" data-toggle="tooltip" data-placement="right" title="Click To Reload Data">Reload</button>
+          <button type="reset" class="btn btn-danger pop_btn" [hidden]="data.reset_btn" (click)="reset()" name="reset" id="reset_btn" data-toggle="tooltip" data-placement="right" title="Click To Reset data ">Reset</button>
+          <button type="button" class="btn btn-warning pop_btn" [hidden]="data.close_btn" (click)="close()" name="Add" id="close_btn" data-toggle="tooltip" data-placement="right" title="Click To Close">Close</button>
+
+        </div>
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+  </div>
+</div>
+</div>
+</div>
+</div>

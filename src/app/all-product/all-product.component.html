@@ -1,0 +1,120 @@
+<div class='col'>
+
+  <div class="row">
+
+  <div class="col-xl-3 col-lg-3">
+
+    <div class="col" id="box_design_1">
+      <div class="col" id='row_head'>
+        <div class="col text-center">
+          <h3 id='form_head_all'> Product Details</h3>
+      </div>
+      </div>
+
+
+    <div class="col" id="box_1_sub_box">
+
+
+    <form id="form">
+
+      <div class="text-center">
+        <img [src]='data.default_src' class="rounded mx-auto d-block" id="preview_img_cat">
+      </div>
+
+      <br>
+      <div class='mb-3'>
+        <label>Upload Image</label>
+        <input type="file" accept="image/*" (change)="upload_images($event)" class='form-control' name="c_img" >
+      </div>
+
+      <div class='mb-3'>
+        <label>Select Category</label>
+        <select class="form-select" name="category" for_valid="select-true" [(ngModel)]="fd.cat">
+          <option value="0"><strong>Select Category</strong> </option>
+          <option value="{{x.cid}}"  *ngFor="let x of data.cat_list" >{{x.cname}}</option>
+        </select>
+      </div>
+
+      <div class='mb-3'>
+        <label>Product Name</label>
+        <input type="text" class='form-control' id="pname" for_valid="code_allow-true-1-200" name="pname" [(ngModel)]="fd.pname" placeholder="Enter Product Name" >
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <div class='mb-3'>
+            <label>Buy Price</label>
+            <input type="number" class='form-control' for_valid="only_num-true-1-50" id="buy" name="buy" [(ngModel)]="fd.buy_prc" placeholder="Buying Price" >
+          </div>
+        </div>
+        <div class="col-6">
+          <div class='mb-3'>
+            <label>Sell Price</label>
+            <input type="number" class='form-control' for_valid="only_num-true-1-50" id="sell" name="sell" [(ngModel)]="fd.sell_prc" placeholder="Selling  Price" >
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <div class='mb-3'>
+            <label>Item Code</label>
+            <input type="text" class='form-control' id="code" for_valid="code_allow-false-1-50" name="code" [(ngModel)]="fd.code" placeholder="Item Code" >
+          </div>
+        </div>
+        <div class="col-6">
+          <div class='mb-3'>
+            <label>Stock Qty.</label>
+            <input type="number" class='form-control' id="qty" for_valid="only_num-true-1-50" name="qty" [(ngModel)]="fd.qty" placeholder="Available Qty" >
+          </div>
+        </div>
+      </div>
+
+      <br>
+  <div class='col text-center' id="btn_div">
+    <button type="button" class='btn btn-primary' *ngIf="data.add_btn" (click)="save()" ><Strong>Add</Strong></button>
+    <button type="button" class='btn btn-primary' *ngIf="data.update_btn" (click)="update()"><Strong>Update</Strong></button>
+    <button type="reset" class='btn btn-warning' (click)="reset()"><Strong>Reset</Strong></button>
+    <button type="reset" class='btn btn-danger' *ngIf="data.del_btn" (click)="delete()"><Strong>Delete</Strong></button>
+  </div>
+
+    </form>
+  </div>
+  </div>
+  </div>
+  <div class="col-xl-9 col-lg-9">
+    <div class="col">
+
+      <div class="col-sm-2 col-xs-2 text-center" id="category_item" *ngFor="let x of data.data_list" (click)="edit(x.pid)">
+          <div class='col text-center'>
+            <img [src]="x.p_img" id="cat_img">
+          </div>
+          <br>
+          <div class='col'>
+            <span class='col' id="product_name">{{x.pname}}- <i class="fa fa-inr"></i>{{x.sell_price}}</span>
+
+          </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+  </div>
+
+
+
+  </div>
+  </div>

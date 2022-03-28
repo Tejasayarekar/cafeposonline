@@ -1,0 +1,560 @@
+body, button, input {
+  font-family: sans-serif;
+  font-weight: 700;
+}
+
+
+
+.box1, .box2, .box3 , .box4
+{
+  box-shadow: 1px 2px 10px 3px #FAFAFA;
+  height: 150px;
+  border-radius: 10px;
+}
+
+.box1:hover, .box2:hover, .box3:hover ,.box4:hover
+{
+  box-shadow: 1px 2px 10px 3px #888;
+
+}
+.box1{
+  background-color: #87CEFA;
+    margin-left: 35px;
+    height:130px;
+    margin: 0 auto;
+}
+.box2{
+  background-color: #ffff66;
+  margin-left: 35px;
+  height:130px;
+  margin: 0 auto;
+}
+
+.box3 {
+  background-color: #ccff99;
+  margin-left: 35px;
+  height:130px;
+  margin: 0 auto;
+}
+.box4
+{
+  background-color: #ffa366;
+  margin-left: 35px;
+  height:130px;
+  margin: 0 auto;
+}
+
+
+#task_box1,#task_box2
+{
+  float: left;
+  min-width: 250px;
+  margin: 0 auto;
+}
+
+#task1_row,#task2_row
+{
+      border-bottom-left-radius: 7px;
+      border-bottom-right-radius: 7px;
+      border-top-left-radius: 7px;
+      border-top-right-radius: 7px;
+
+      border:1px solid orange;
+      min-height: 300px;
+      max-height: 500px;
+      width: 100%;
+
+}
+#task2_head,#task1_head
+{
+  text-align:center;
+  font-weight: 700;
+  font-size: 16px;
+  font-family: sans-serif;
+  background-color: orange;
+  line-height: 30px;
+
+}
+#btn_img_loader
+{
+  height: 30px;
+  width: 30px;
+  float: left;
+}
+#btn_add_img
+{
+  height: 25px;
+  width: 25px;
+  float: left;
+margin-right: 5px;
+}
+
+.bounce-1 {
+  animation-name: bounce-1;
+  animation-timing-function: linear;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+@keyframes bounce-1 {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+#preview_img{
+  height: 3.4rem;
+  width: 3.4rem;
+  float: left;
+}
+#img_box1{
+  height: 70px;
+  width:50% !important;
+}
+#box1_text {
+  line-height: 30px;
+  padding-top: 15px;
+  text-align: right;
+  width:50% !important;
+}
+
+#down_line_box1
+{
+  height: 40px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background: #333;
+  color:white;
+  text-align: center;
+  font-family: sans-serif;
+  font-weight: 700;
+  line-height: 40px;
+  font-size: 1.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family:  "Comic Sans MS", cursive, sans-serif;
+}
+#down_line_box1 h5{
+  padding-top: 8px;
+}
+#box1_main{
+  padding-top: 20px;
+}
+
+
+/********** Webpage Code Start *****************/
+#full_page{
+  height: auto;
+  min-height: 100%;
+  overflow: auto;
+}
+#middle_page{
+background-color: #FFF;
+}
+#left_page{
+  float: left;
+  height: auto;
+  min-height: 1000px;
+  }
+  #right_page{
+    float: left;
+    height: auto;
+    min-height: 1000px;
+  }
+
+
+#right_main_pg{
+  border-radius: 3px;
+  min-height: 1000px;
+  border: 0.5px solid #E7E7E8;
+}
+#right_main_pg:hover{
+  box-shadow: 1px 2px 10px 3px #E7E7E8;
+}
+#left_main_pg:hover{
+  box-shadow: 1px 2px 10px 3px #888;
+}
+#left_main_pg{
+  padding: 20px;
+  border-radius: 3px;
+  min-height: 1000px;
+  height:auto;
+  max-height:3000px;
+  overflow:hidden;
+  border: 0.5px solid #E7E7E8;
+}
+#bg_title
+{
+  font-weight: 700;
+  font-size: 19px;
+  font-family: sans-serif;
+  color: #333;
+}
+#bg_img
+{
+  margin-top: 5px;
+  max-width: 100%;
+  max-height: 500px;
+  height: auto;
+  width: auto;
+  min-width: 50%;
+  min-height: 300px;
+  border: 4px solid #E7E7E8;
+}
+#bg_social{
+    float: right;
+}
+#social_sm_icon
+{
+  height: 15px;
+  width: 15px;
+}
+
+#social_btn_fb,#social_btn_pin,#social_btn_li,#social_btn_tw{
+  padding: 1px;
+  height: 30px;
+  width: 30px;
+}
+
+#bg_text
+{
+  padding: 7px;
+  margin-top: 7px;
+}
+#bg_author{
+  text-align: right;
+}
+#author_name
+{
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color:#888;
+}
+#post_time{
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  color:#888;
+}
+#social_btn_pin{
+  background-color: #ff1a1a;
+}
+#social_btn_tw{
+  background-color: #4da6ff;
+}
+#social_btn_li{
+  background-color: #0099ff;
+}
+#bg_google_ad
+{
+  height: auto;
+  min-height: 40px;
+}
+#bg_comment_scrpt{
+  height: auto;
+  max-height: 1000px;
+  overflow: auto;
+}
+#comment_head{
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  width: 100%;
+}
+#bg_rh_heading{
+  margin-top: 7px;
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  width: 100%;
+}
+
+#bg_tb_row{
+  width: 100%;
+  padding: 5px;
+  border-radius: 10px;
+  height: 45px;
+  border:1px solid #888;
+
+}
+#td_row{
+  border-radius: 10px;
+  border: 1px solid #888;
+  }
+  #cat_name{
+    text-align: left;
+    float: left;
+  line-height: 30px;
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+  }
+#cat_cnt{
+  height: 30px;
+  width: 30px;
+  float: right;
+  border-radius: 50%;
+  line-height: 30px;
+  padding-left: 3px;
+  background-color: #36DB04;
+  color:#333;
+  text-align: left;
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+}
+#bg_social{
+  width: 100%;
+}
+#social_md_icon
+{
+  height: 20px;
+  width: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+#social_btn_fb_big,#social_btn_pin_big,#social_btn_insta_big,#social_btn_tw_big{
+  padding: 1px;
+  height: 40px;
+  font-weight:700;
+    font-family: SourceSansPro-Regular;
+    font-size:14px;
+}
+#social_btn_fb_big
+{
+  background-color: #3B5998;
+  margin-top: 5px;
+  text-align: left;
+  width: 100%;
+}
+#social_btn_pin_big{
+  margin-top: 5px;
+  text-align: left;
+  background-color: #bd081c;
+  width: 100%;
+}
+#social_btn_insta_big
+{
+    margin-top: 5px;
+  text-align: left;
+  background-color: #fd1d1d;
+  width: 100%;
+
+}
+
+#social_btn_tw_big{
+  margin-top: 5px;
+  text-align: left;
+  background-color: #1da1f2;
+    width: 100%;
+}
+#social_btn_li_big{
+  margin-top: 5px;
+  text-align: left;
+  background-color: #0099ff;
+    width: 100%;
+}
+#button_social
+{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#bg_google_ad2
+{
+  height: 400px;
+  width: 100%;
+}
+#posts_data{
+  width: 100%;
+  height: auto;
+  min-height: 110px;
+  padding: 5px;
+  margin-top: 7px;
+  border-radius: 5px;
+}
+#posts_data:hover
+{
+  box-shadow: 1px 2px 10px 3px #888;
+}
+
+#img_left_post{
+  width: 30%;
+  max-width: 30%;
+  min-width: 90px;
+  height: 90px;
+  float: left;
+}
+#img_right_post{
+  float: right;
+  width: 65%;
+}
+#sm_blg_img
+{
+  width: 100px;
+  height: 100px;
+  border:5px solid #E7E7E8;
+}
+#post_title{
+  font-size: 14px;
+  font-weight: 700;
+  font-family: sans-serif;
+}
+#fb_add{
+  height: auto;
+  min-height: 100px;
+}
+/********** Webpage Code End *****************/
+
+
+
+
+#bg_author_pr{
+  padding-right: 20px;
+  text-align: left;
+}
+#recent_bg_img{
+  border-radius: 2px;
+  border-radius: 4px solid #E7E7E8;
+  margin-top:7px;
+  height: 170px;
+  width: 170px;
+  border: 5px solid  E7E7E8;
+}
+#blogs_recent_pr{
+  float: left;
+width: 100%;
+height: auto;
+overflow: auto;
+min-height: 200px;
+margin-top: 10px;
+}
+
+#blogs_recent_pr:hover{
+  box-shadow: 1px 1px 10px 2px #E7E7E8;
+}
+
+#sub_bg_left
+{
+ float:left;
+ height:auto;
+ overflow:hidden;
+}
+#sub_bg_right
+{
+    padding-top:10px;
+ float:left;
+ height:auto;
+ overflow:hidden;
+}
+
+#policy_pg
+{
+  padding: 35px;
+}
+.head_text:hover{
+  text-decoration: none;
+  }
+  .header-right a:hover{
+    text-decoration: none;
+    color: white;
+  }
+
+#row_data{
+  height: auto;
+  max-height: 20px;
+}
+#table_box{
+height: auto;
+width: 100%;
+overflow: auto;
+}
+
+
+
+#about-us{display:block; width:100%; line-height:1.6em;}
+#about-us h2{margin-bottom:50px; padding-bottom:40px; font-size:80px; text-align:center; text-transform:uppercase; border-bottom:1px solid #CCCCCC;} /* DEMO USE ONLY - CAN BE DELETED */
+
+#about-us #about-intro{margin-bottom:50px;}
+#about-us #about-intro p{margin:20px 0 0 0; padding:0;}
+#about-us #about-intro p:first-child{margin-top:0;}
+
+#about-us #team{margin-bottom:0;}
+#about-us #team ul{margin:0; padding:0; list-style:none;}
+#about-us #team ul li{margin-bottom:30px;}
+#about-us #team ul li figure{position:relative; text-align:center;}
+#about-us #team ul li figure img{padding:9px; border:1px solid #CCCCCC;}
+#about-us #team ul li figure figcaption{display:none; position:absolute; top:10px; left:10px; width:280px; height:200px; overflow:hidden; color:#FFFFFF; background-color:#000000; background:hsla(0, 0%, 0%, 0.8);}
+#about-us #team ul li:hover figure figcaption{display:block;}
+#about-us #team ul li figure figcaption p{margin:15px 15px 0 15px; padding:0;}
+#about-us #team ul li figure figcaption p:first-child{margin-top:35px;}
+#about-us #team ul li figure figcaption .team_name{font-weight:bold;}
+#about-us #team ul li figure figcaption .team_title{margin:0; font-size:11px; line-height:normal;}
+#about-us #team ul li figure figcaption .team_description{text-align:left;}
+
+
+
+
+
+
+
+#about_div {
+
+    height: auto;
+    overflow: hidden;
+    padding: 15px;
+
+}
+
+#img_about_div
+{
+    float:left;
+}
+#developer_div
+{
+    margin-top:15px;
+}
+
+#about_div:hover
+{
+    box-shadow:1px 1px 10px 3px #888;
+}
+#developer_div:hover
+{
+    box-shadow:1px 1px 10px 3px #888;
+}
+
+#img_about
+{
+ height:450px;
+ width :95%;
+
+}
+#img_developer
+{
+    height:200px;
+    width:200px;
+    border-radius:50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+#about_content
+{
+    float:right;
+    text-align:left;
+}
+#dev_content
+{
+    padding:10px;
+    font-weight:700;
+    text-align:center;
+}
+
+#app_logo_prv
+{
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+}

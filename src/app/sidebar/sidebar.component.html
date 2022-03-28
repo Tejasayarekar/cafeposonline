@@ -1,0 +1,155 @@
+<div class="sidebar">
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-item">
+
+      <a class="sidebar-nav-link">
+        <div>
+          <i class=""><img src='assets/img/icons/login_user.png' id='img_in_menu'></i>
+        </div>
+        <span>
+          Hello {{data.user_name}}
+        </span>
+      </a>
+    </li>
+
+    <li class="sidebar-nav-item" *ngIf="check_available('dashboard') || check_available('all')">
+      <a routerLink='dashboard' class="sidebar-nav-link">
+       <div>
+          <i class=""><img src='assets/img/icons/home1.png' id='img_in_menu'></i>
+
+        </div>
+        <span>
+          Dashboard
+        </span>
+      </a>
+    </li>
+
+    <li class="sidebar-nav-item"  *ngIf="check_available('category') || check_available('all')">
+
+
+      <a routerLink='all_category' class="sidebar-nav-link" >
+
+        <div>
+          <i class=""><img src='assets/img/icons/category.png' id='img_in_menu'></i>
+        </div>
+        <span>
+         Category
+        </span>
+      </a>
+    </li>
+
+
+
+
+    <li class="sidebar-nav-item" *ngIf="check_available('product') || check_available('all')" >
+      <a routerLink='all_product' class="sidebar-nav-link" >
+        <div>
+          <i class=""><img src='assets/img/icons/product.png' id='img_in_menu'></i>
+
+        </div>
+        <span>
+         Product
+        </span>
+      </a>
+    </li>
+
+
+    <li class="sidebar-nav-item" *ngIf="check_available('sales') || check_available('all')">
+      <a routerLink='sales' class="sidebar-nav-link">
+        <div>
+
+               <i class=""><img src='assets/img/icons/sale.png' id='img_in_menu'></i>
+
+        </div>
+        <span>
+          Sales
+        </span>
+      </a>
+    </li>
+
+    <li class="sidebar-nav-item" *ngIf="check_available('purchase') || check_available('all')">
+      <a routerLink='purchase' class="sidebar-nav-link">
+        <div>
+
+          <i class=""><img src='assets/img/icons/purchase.png' id='img_in_menu'></i>
+
+        </div>
+        <span>
+         Purchase
+        </span>
+      </a>
+    </li>
+
+    <li class="sidebar-nav-item" *ngIf="check_available('inventory') || check_available('all')">
+      <a routerLink='inventory' class="sidebar-nav-link">
+        <div>
+          <i class=""><img src='assets/img/icons/inventory.png' id='img_in_menu'></i>
+        </div>
+        <span>
+         Inventory
+        </span>
+      </a>
+    </li>
+
+    <li class="sidebar-nav-item" *ngIf="check_available('reports') || check_available('all')">
+      <a routerLink='reports/profit_loss_report' class="sidebar-nav-link">
+        <div>
+          <i class=""><img src='assets/img/icons/reports.png' id='img_in_menu'></i>
+        </div>
+        <span>
+         Reports
+        </span>
+      </a>
+    </li>
+    <li class="sidebar-nav-item" *ngIf="check_available('table') || check_available('all')">
+      <a routerLink='all_table' class="sidebar-nav-link">
+        <div>
+          <i class=""><img src='assets/img/icons/table.png' id='img_in_menu'></i>
+        </div>
+        <span>
+         All Table
+        </span>
+      </a>
+    </li>
+
+
+    <li class="sidebar-nav-item" *ngIf="check_available('admin') || check_available('all')">
+      <a routerLink='all_admin' class="sidebar-nav-link">
+        <div>
+          <i class=""><img src='assets/img/icons/login_user.png' id='img_in_menu'></i>
+
+        </div>
+        <span>
+         All Admin
+        </span>
+      </a>
+    </li>
+
+
+
+    <li class="sidebar-nav-item" *ngIf="data.user_type=='admin' ||  data.user_type=='ADMIN' && check_available('setting') || check_available('all') " >
+
+      <a routerLink="setting" class="sidebar-nav-link">
+        <div>
+          <i class=""><img src='assets/img/icons/settings.png' id='img_in_menu'></i>
+        </div>
+        <span>
+          Setting
+        </span>
+      </a>
+    </li>
+
+    <li class="sidebar-nav-item">
+      <a (click)="logout()" class="sidebar-nav-link">
+        <div>
+          <i class=""><img src='assets/img/icons/logout.png' id='img_in_menu'></i>
+        </div>
+        <span>
+          Logout
+        </span>
+      </a>
+    </li>
+
+  </ul>
+</div>
+

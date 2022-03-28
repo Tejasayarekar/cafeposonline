@@ -1,0 +1,87 @@
+<div class='col'>
+
+  <div class="row">
+
+  <div class="col-xl-3 col-lg-3">
+
+    <div class="col" id="box_design_1">
+      <div class="col" id='row_head'>
+        <div class="col text-center">
+          <h3 id='form_head_all'> Table  Details</h3>
+      </div>
+      </div>
+
+
+    <div class="col" id="box_1_sub_box">
+    <form id="form">
+
+       <div class='mb-3'>
+        <label>Table Name</label>
+        <input type="text" class='form-control' id="pname" name="pname" [(ngModel)]="fd.tname" placeholder="Enter Table NO / Name" >
+      </div>
+      <br>
+      <div class='mb-3'>
+        <label>Table Capacity</label>
+        <input type="text" class='form-control' for_valid="code_allow-true-1-100" id="description" name="description" [(ngModel)]="fd.capacity" placeholder="Enter Capacity" >
+      </div>
+<br>
+
+
+
+
+  <div class='col text-center' id="btn_div">
+    <button type="button" class='btn btn-primary' *ngIf="data.add_btn" (click)="save()" ><Strong>Add</Strong></button>
+    <button type="button" class='btn btn-primary' *ngIf="data.update_btn" (click)="update()"><Strong>Update</Strong></button>
+    <button type="reset" class='btn btn-warning' (click)="reset()"><Strong>Reset</Strong></button>
+    <button type="reset" class='btn btn-danger' *ngIf="data.del_btn" (click)="delete()"><Strong>Delete</Strong></button>
+  </div>
+
+    </form>
+
+
+
+  </div>
+  </div>
+  </div>
+  <div class="col-xl-9 col-lg-9">
+    <div class="col">
+
+      <table class="table_rc" id="tb_data">
+        <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Capacity</th>
+            <th>Time</th>
+
+          </tr>
+         <tr *ngFor="let x of data.data_list  let i=index" class='row_data' (click)="edit(x.tid)">
+              <td>{{ i+ 1 }}</td>
+              <td>{{ x.tname }}</td>
+              <td>{{ x.capacity }}</td>
+              <td>{{ x.save_date_tb }}</td>
+
+            </tr>
+        </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+  </div>
+
+
+
+  </div>
+  </div>

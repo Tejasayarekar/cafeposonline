@@ -1,0 +1,402 @@
+html
+{
+  overflow-x: hidden !important;
+}
+
+html,body{
+  width: 100%;
+  margin: 0;
+  left: 0;
+  right: 0;
+  height: auto;
+  max-height: 4000px;
+  background-color: #FAFAFA;
+}
+#parent_body{
+}
+
+#ad_left_sub{
+  background-color:#ffffff;
+}
+
+/*Code for pagination */
+
+
+
+#btn_add_img ,#btn_img_otp
+{
+  height: 30px;
+  width: 30px;
+}
+#btn_load_temp,#btn_logo
+{
+  height: 30px;
+  width: 30px;
+}
+#main_systm_sts{
+color: lime;
+font-weight: 700;
+line-height: 40px;
+text-align: center;
+}
+
+#add_data_img{
+    height:450px;
+    width:500px;
+    margin-left: 35%;
+}
+
+#loading_logo
+{
+height: 42px;
+width: 42px;
+}
+.hidden_field
+{
+  display:none;
+}
+/* */
+#usr_img
+{
+  height: 180px;
+  width:150px;
+}
+#demo_img_upload
+{
+  height: 100px;
+  width:100px;
+}
+
+#quote{
+text-align: center;
+}
+
+.comman_text
+{
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-weight: 700;
+
+}
+
+#comman_header
+{
+
+}
+.header_text
+{
+  color: #333;
+  font-size: 20px;
+}
+.footer_text
+{
+    text-align: center;
+    color: #333;
+    font-size: 19px;
+}
+.login_name
+{
+  text-align: center;
+  color: #fff;
+  font-size: 17px;
+}
+
+
+#Main_sub_page
+{
+  min-height: 700px;
+  height: auto;
+  margin-top: 15px;
+  margin-left: 1px;
+  margin-bottom: 10px;
+/*  border: 1px solid #fff;*/
+  border-radius: 5px;
+
+
+}
+
+#Main_sub_page:hover{
+/*  box-shadow: 1px 1px 10px 3px #888;*/
+}
+
+
+.img_in_button
+{
+  height: 25px;
+  width: 25px;
+  margin-right: 8px;
+}
+
+#img_in_menu
+{
+  height: 20px;
+  width: 20px;
+  margin-right: 8px;
+}
+
+#logo_head
+{
+  height: 70px;
+  width: 70px;
+}
+
+#toggale_btn
+{
+  height: 40px;
+  width: 40px;
+}
+
+
+#left_bar1 {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 200px;
+    background-color: #120303;
+    transition: transform 0.4s ease;
+}
+.content1 {
+    height: auto;
+    transition: transform 0.4s ease;
+}
+#left_box
+{
+  position: fixed;
+  top:0;
+  bottom: 0;
+  left: 0;
+  float: left;
+  width: 200px;
+  background-color: #120303;
+
+}
+#right_box
+{
+    float: right;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    margin:auto 0;
+    left: 200px;
+}
+
+.active-nav #left_bar {
+    transform: translate3d(0, 0, 0);
+}
+
+
+#sub_iframe{
+  border: 1px solid transparent;
+  height: auto;
+  max-height: 4000px;
+}
+
+.menu_text
+{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color:#fff;
+}
+/***********  Code for Box Style *******************************************/
+
+#content_box1
+{
+
+background-color:#ffffff;
+min-height: 600px;
+height: auto;
+width: 100%;
+border: 1px solid orange;
+overflow: hidden;
+border-bottom-right-radius: 5px;
+border-bottom-left-radius: 5px;
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+box-shadow: 1px 1px 10px 0px #888;
+
+}
+
+#box_heading1
+{
+  text-align: center;
+  font-size: 20px;
+  line-height: 40px;
+  font-weight: 700;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+#box_row1
+{
+  background-color: orange;
+  height: 45px;
+}
+
+
+#content_box2
+{
+width: 100%;
+border: 1px solid #1BDFF5;
+min-height: 600px;
+max-height: 4000px;
+overflow: auto;
+border-bottom-right-radius: 5px;
+border-bottom-left-radius: 5px;
+}
+#box_heading2
+{
+  text-align: center;
+  font-size: 20px;
+  line-height: 40px;
+  font-weight: 700;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+  color:#000;
+}
+#box_row2
+{
+  background-color: #1BDFF5;
+  height: 45px;
+}
+
+
+
+
+/********** Loading Sms *******************/
+#loadingMessage {
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background: #fff;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+}
+#pg_loading_img
+{
+top: 40%;
+left:40%;
+position: fixed;
+}
+
+
+.button-default
+{
+  color: #494949 !important;
+background: #ffffff;
+padding: 5px;
+font-size: 15px;
+font-weight: 700;
+color:#333;
+border: 4px solid #494949 !important;
+border-radius: 6px;
+display: inline-block;
+}
+
+.button-default:hover
+{
+  color: #ffffff !important;
+background: #f6b93b;
+border-color: #f6b93b !important;
+transition: all 0.4s ease 0s;
+}
+
+
+
+/************** Modal Box code ***************************/
+
+#pop_modal
+{
+    display: block;
+/* Hidden by default */
+position: fixed; /* Stay in place */
+/* Sit on top */
+padding-top: 40px;
+padding-bottom: 20px;
+/* Location of the box */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+border-radius: 10px;
+}
+
+/* Modal Content */
+#modal_content {
+position: relative;
+background-color:transparent;
+margin: auto;
+padding: 0;
+border-radius: 20px;
+border: 1px solid #888;
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+-webkit-animation-name: animatetop;
+-webkit-animation-duration: 0.4s;
+animation-name: animatetop;
+animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+from {top:-300px; opacity:0}
+to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+from {top:-300px; opacity:0}
+to {top:0; opacity:1}
+}
+
+.pop_btn{
+margin-left:8px;
+}
+
+/* The Close Button */
+.close {
+color: white;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+color: #000;
+text-decoration: none;
+cursor: pointer;
+}
+
+/*************************************************/
+
+#btn_img_loader{
+  height: 30px;
+  width: 30px;
+  float:left;
+}
+
+.edit_r, .del_r
+{
+  height: 40px;
+  width: 45px;
+  float: left;
+}
+#menu_logo{
+  height: 25px;
+  width: 25px;
+}
+
+#c_logo{
+  height:80px;
+  width: 80px;
+}
+#table_img_prw
+{
+  height: 40px;
+  width: 40px;
+}
+#p_text_dashboard
+{
+  text-align: center;
+}

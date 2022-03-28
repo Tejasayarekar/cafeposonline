@@ -1,0 +1,73 @@
+<div class='col'>
+
+  <div class="row">
+
+  <div class="col-xl-12 col-lg-12">
+
+    <div class="col" id="box_design_1">
+      <div class="col" id='row_head'>
+        <div class="col text-center">
+          <h3 id='form_head_all'>Settings</h3>
+      </div>
+      </div>
+
+
+    <div class="col" id="box_1_sub_box">
+
+
+    <form id="form">
+
+
+      <div class='mb-3'>
+        <label>Business Name</label>
+        <input type="text" class='form-control' id="pname" for_valid="code_allow-true-1-300" name="pname" [(ngModel)]="fd.name" placeholder="Enter Business Name" >
+      </div>
+
+      <div class='mb-3'>
+        <label>Business Address</label>
+        <input type="text" class='form-control' id="addr" for_valid="code_allow-true-1-300" name="address" [(ngModel)]="fd.address" placeholder="Enter Address" >
+      </div>
+
+      <div class='mb-3'>
+        <label>Tag Line</label>
+        <input type="text" class='form-control' for_valid="code_allow-true-1-100" id="tag" name="tag" [(ngModel)]="fd.tag" placeholder="Tag Line" >
+      </div>
+
+      <div class='mb-3'>
+        <label>Bill Prefix</label>
+        <input type="text" class='form-control' for_valid="code_allow-true-1-20" id="preix" name="bill_prefix" [(ngModel)]="fd.bill_prefix" placeholder="Bill Start With" >
+      </div>
+
+
+      <div class='mb-3'>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="delete" id="flexCheckChecked" [(ngModel)]="fd.purchase_in">
+          <label class="form-check-label" for="flexCheckChecked">
+            Purchase Inventory Manage
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="delete" id="flexCheckChecked" [(ngModel)]="fd.sales_in">
+          <label class="form-check-label" for="flexCheckChecked">
+            Sales Inventory Manage
+          </label>
+        </div>
+      </div>
+      <div class="" id="err_status">
+
+      </div>
+  <div class='col text-left' id="btn_div">
+    <button type="button" class='btn btn-primary' id="update_btn" (click)="update()"><Strong>Update</Strong></button>
+    <button type="reset" class='btn btn-warning' (click)="reset()"><Strong>Reset</Strong></button>
+  </div>
+
+    </form>
+  </div>
+  </div>
+  </div>
+
+
+
+
+  </div>
+  </div>

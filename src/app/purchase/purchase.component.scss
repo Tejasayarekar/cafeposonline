@@ -1,0 +1,83 @@
+
+.save{
+  width: 150px;
+  border-radius: 4px;
+  background-color: rgb(226, 48, 48);
+  color: white;
+
+}
+
+.Print{
+  width: 150px;
+  border-radius: 4px;
+  background-color: rgb(226, 48, 48);
+  color: white;
+  margin-left: 10px;
+}
+
+.button{
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.table-data{
+  text-align: center;
+}
+
+.table-header{
+  text-align: center;
+}
+
+.text-box{
+  margin-left: 10px;
+}
+
+.ng-autocomplete {
+border:none;
+::ng-deep .autocomplete  {
+  border:none;
+  width: auto;
+  min-width:200px;
+  max-width:400px
+}
+
+}
+
+.ng-autocomplete {
+  ::ng-deep .autocomplete-container.active
+  {
+    border-radius: 10px;
+    background-origin: padding-box;
+  }
+}
+.ng-autocomplete {
+  ::ng-deep .autocomplete-container .input-container input {
+    box-shadow: none;
+    border-radius: 10px !important;
+    border:1px solid #333 !important;
+    background-color:#eeeeee;
+  }
+}
+
+#product_img,#category_img{
+height:80px;
+width: 80px;
+margin-left: 6px;
+margin-top:7px;
+border-radius: 5px;;
+}
+
+#discount_text{
+border: none;
+float: right;
+}
+#qty_text{
+border: none;
+}
+#acc_class{
+color:#ffffff !important;
+}
+#temp_table{
+max-height: 800px;
+overflow: auto;
+}
