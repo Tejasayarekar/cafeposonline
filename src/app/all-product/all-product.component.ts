@@ -1,4 +1,4 @@
- import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient , HttpHeaders} from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SmsService } from '../services/sms.service';
@@ -9,6 +9,8 @@ import { DbService } from '../services/db.service';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { SqlService } from '../services/sql.service';
 import { UserValidService } from '../services/user-valid.service';
+import { APIService } from '../services/api.service';
+
 
 declare const form_valid:any;
 declare const form_valid1:any;
@@ -36,6 +38,7 @@ export class AllProductComponent implements OnInit {
   p: number = 1;
 
   constructor(
+    private api:APIService,
     private sql:SqlService,
     private imageCompress:NgxImageCompressService,
     private HTTP:HttpClient,
@@ -59,7 +62,6 @@ export class AllProductComponent implements OnInit {
       this.data.tb_name_category=this.data.tb_list[0].category_tb;
 
 
-      this.load_category_list();
       this.load_data_list();
       this.reset();
      }
@@ -69,66 +71,35 @@ export class AllProductComponent implements OnInit {
 
         row_filter("table_rc","search");
   }
-  convert_to_mb(size_bt:any){
-    let fix_val=1048576;
-    let mb=size_bt/fix_val;
-    return mb;
-  }
-  compressFile(image:any,orientation:any) {
-
-    this.imageCompress.compressFile(image, orientation, 50, 50).then(
-      result => {
-        this.fd.img_data=result;
-      }
-    );
-
-}
-  upload_images(event:any)
-  {
-
-    this.data.docs = <File>event.target.files;
-    console.log(" Image Details"+JSON.stringify(event.target.files));
-    for(let i=0;i<this.data.docs.length;i++)
-    {
-
-      let img_size_byte=this.data.docs[0].size;
-      this.data.img_name=this.data.docs[0].name;  // to get file size in byte
-      let img_size_mb=this.convert_to_mb(img_size_byte);  // to get file size in mb
-
-      // to show preview of images selcted
-    var reader = new FileReader();
-    reader.onload = (event: any) => {
-      if(img_size_mb > 1)
-      {
-        this.compressFile(event.target.result,1); // to reduce file size
-      }else{
-            this.fd.img_data=event.target.result;
-      }
-    }
-      reader.readAsDataURL(event.target.files[i])
-    }
-  }
-  save()
-  {
-    /*let img_dd={img_name:this.data.img_name,img_for:"category",img_data:this.fd.img_data};
-    this.sql.add("images",img_dd);
-*/
+  
+save()
+{
 let ch=form_valid1("form");
 if(ch)
 {
     let time=this.db.get_date_time();
-    let dd={
-            cid:this.fd.cat,
-            pname:this.fd.pname,
-            p_img:this.fd.img_data,
-            sell_price:this.fd.sell_prc,
-            buy_price:this.fd.buy_prc,
-            qty:this.fd.qty,
-            item_code:this.fd.code,
-            save_date_product:time};
-    this.sql.add(this.data.tb_name,dd);
-    this.load_data_list();
-    this.reset();
+    let val_list=[];
+    val_list.push(this.fd.cat,
+      this.fd.pname,
+      this.fd.img_data,
+      this.fd.sell_prc,
+      this.fd.buy_prc,
+      this.fd.qty,
+      this.fd.code,
+      time);
+    let dd={modal:'product',sub_modal:'add',val_list:val_list};
+    this.api.post_api(dd).subscribe((res)=>{
+      if(res.result=="success")
+      {
+        success_sms_disp("err_status","Record added successful",8000);
+        this.load_data_list();
+        this.reset();
+
+      }
+      else{
+        error_sms_disp("err_status","Something went wrong",8000);
+      }
+    })
     }
   }
   update()
@@ -142,22 +113,31 @@ if(ch)
             if(ch)
             {
               let time=this.db.get_date_time();
-              let dd_up={
-                pid:this.data.id_edit,
-                cid:this.fd.cat,
-                pname:this.fd.pname,
-                p_img:this.fd.img_data,
-                sell_price:this.fd.sell_prc,
-                buy_price:this.fd.buy_prc,
-                qty:this.fd.qty,
-                item_code:this.fd.code,
-                save_date_product:time};
-
-                this.sql.update(this.data.tb_name,dd_up).subscribe((res)=>{
-                this.data.data_list=res;
-                this.reset();
-              });
-            }
+              let val_list=[];
+              val_list.push(this.data.id_edit,this.fd.cat,
+                this.fd.pname,
+                this.fd.img_data,
+                this.fd.sell_prc,
+                this.fd.buy_prc,
+                this.fd.qty,
+                this.fd.code,
+                time);
+              let dd={modal:'product',sub_modal:'update',val_list:val_list};
+              this.api.post_api(dd).subscribe((res)=>{
+                if(res.result=="success")
+                {
+                  success_sms_disp("err_status","Record updated successful",8000);
+                  this.load_data_list();
+                  this.reset();
+          
+                }
+                else{
+                  error_sms_disp("err_status","Something went wrong",8000);
+                }
+              })
+          
+            };
+            
       }
   }
   reset(){
@@ -166,80 +146,143 @@ if(ch)
     this.data.del_btn=false;
     this.data.update_btn=false;
     this.data.add_btn=true;
-
+    
     this.data.default_src='../../assets/img/profile.png';
   }
-
-  load_category_list()
+  
+   load_data_list()
   {
-    this.sql.fetch_all(this.data.tb_name_category).subscribe((result) => {
-      this.data.cat_list=result;
+    let dd={modal:'product',sub_modal:'fetch_all'};
+    this.api.post_api(dd).subscribe((res)=>{
+    this.data.data_list=res;
     });
   }
-  load_data_list()
-  {
-    this.sql.fetch_all(this.data.tb_name).subscribe((result) => {
-      this.data.data_list=result;
-    });
-
-  }
-
+    
+get_img_url(name:any)
+{
+  return this.url.get_img_url()+"product/"+name;
+}
 
 edit(id:any)
 {
-     this.data.id_edit=id;
-     this.data.del_btn=true;
-     this.data.update_btn=true;
-     this.data.add_btn=false;
+  this.data.id_edit=id;
+  this.data.del_btn=true;
+  this.data.update_btn=true;
+  this.data.add_btn=false;
 
-      for(let i=0;i<this.data.data_list.length;i++)
-     {
-       if(this.data.data_list[i].pid==id)
-       {
-        this.data.default_src=this.data.data_list[i].p_img;
-        this.fd.img_data=this.data.data_list[i].p_img;
-        this.fd.cat=this.data.data_list[i].cid;
-        this.fd.pname=this.data.data_list[i].pname;
-        this.fd.sell_prc=this.data.data_list[i].sell_price;
-        this.fd.buy_prc=this.data.data_list[i].buy_price;
-        this.fd.qty=this.data.data_list[i].qty;
-        this.fd.code=this.data.data_list[i].item_code;
-         break;
-       }
-     }
-    }
-
-    delete()
+  for(let i=0;i<this.data.data_list.length;i++)
+  {
+    if(this.data.data_list[i].pid==id)
     {
-      let id=this.data.id_edit;
-      for(let i=0;i<this.data.data_list.length;i++){
-        if(this.data.data_list[i].pid==id){
-
-         let name=this.data.data_list[i].pname;
-        this.sms.print_confirm("Are Your Sure Want to Delete : "+name+" ? ")
-        .then((result:any)=>{
-                  if(result.isConfirmed)
-                  {
-
-                    this.sql.delete(this.data.tb_name,id).subscribe((res)=>{
-                     this.data.data_list.splice(i,1);
-                      this.reset();
-                    });
-                    //this.data.data_list.splice(id,1);
-                  }else{
-
-                  }
-           })
-
-         break;
-
-        }
+    this.data.default_src=this.url.get_img_url()+"product/"+this.data.data_list[i].p_img;
+    this.fd.img_data=this.data.data_list[i].p_img;
+    this.fd.cat=this.data.data_list[i].cid;
+    this.fd.pname=this.data.data_list[i].pname;
+    this.fd.sell_prc=this.data.data_list[i].sell_price;
+    this.fd.buy_prc=this.data.data_list[i].buy_price;
+    this.fd.qty=this.data.data_list[i].qty;
+    this.fd.code=this.data.data_list[i].item_code;
+      break;
     }
-
-
   }
+}
 
+delete()
+{
+  let id=this.data.id_edit;
+  for(let i=0;i<this.data.data_list.length;i++){
+    if(this.data.data_list[i].pid==id){
 
+      let name=this.data.data_list[i].pname;
+    this.sms.print_confirm("Are Your Sure Want to Delete : "+name+" ? ")
+    .then((result:any)=>{
+        if(result.isConfirmed)
+          {                
+          let dd={modal:'product',sub_modal:'delete',id:this.data.id_edit};
+          this.api.post_api(dd).subscribe((res)=>{
+            if(res.result=="success")
+            {
+              success_sms_disp("err_status","Record Deleted successful",8000);
+              this.data.data_list.splice(i,1);
+              this.reset();
+      
+            }
+            else{
+              error_sms_disp("err_status","Something went wrong",8000);
+            }
+          })
+      };
+})
+     break;
+    }
+  }
+}
 
+// image upload form_valid
+  
+  convert_to_mb(size_bt:any){
+    let fix_val=1048576;
+    let mb=size_bt/fix_val;
+    return mb;
+  }
+  compressFile(image:any,orientation:any) {
+  
+    this.imageCompress.compressFile(image, orientation, 50, 50).then(
+      result => {
+        this.data.img_data=result;
+        this.data.default_src=result;
+        this.upload_to_server(result);
+  
+      }
+    );
+  }
+  upload_images(event:any)
+  {
+  
+    this.data.docs = <File>event.target.files;
+    for(let i=0;i<this.data.docs.length;i++)
+    {
+      let img_size_byte=this.data.docs[0].size;
+      this.fd.img_name=this.data.docs[0].name;  // to get file size in byte
+      let img_size_mb=this.convert_to_mb(img_size_byte);  // to get file size in mb
+  
+     var reader = new FileReader();
+    reader.onload = (event: any) => {
+      if(img_size_mb > 1)
+      {
+        this.compressFile(event.target.result,1); // to reduce file size
+      }else{
+           this.data.img_data=event.target.result;
+            this.data.default_src=event.target.result;
+  
+          this.upload_to_server(event.target.result);
+      }
+    }
+      reader.readAsDataURL(event.target.files[i])
+    }
+  }
+  
+  upload_to_server(img_dd:any){
+    let dd={modal:"gallery",sub_modal:"add_product",file:img_dd};
+      this.api.post_api(dd).subscribe((response:any)=>{
+        console.log("Response Image ",response.result);
+      if(response.result=="Error")
+        {
+          this.sms.print_error("Fail To Upload Image Try Again..");
+          this.data.default_src='../../assets/img/no.png';
+          this.fd.img_name="no.jpeg";
+        }else{
+          this.data.default_src=this.url.get_img_url()+"product/"+response.result;
+          this.fd.img_name=response.result;
+          this.fd.default_img=this.url.get_img_url()+"product/"+response.result;
+        }
+      },(error:any)=>{
+          console.log("Error Image Uploading ",error);
+          this.data.default_src='../../assets/img/no.png';
+          this.sms.print_error("Server Error ..");
+          this.fd.img_name="no.jpeg";
+      });
+  }
+  
 
 }

@@ -87,7 +87,7 @@
 
       <div class="col-sm-2 col-xs-2 text-center" id="category_item" *ngFor="let x of data.data_list" (click)="edit(x.pid)">
           <div class='col text-center'>
-            <img [src]="x.p_img" id="cat_img">
+            <img [src]="get_img_url(x.p_img)" id="cat_img">
           </div>
           <br>
           <div class='col'>
