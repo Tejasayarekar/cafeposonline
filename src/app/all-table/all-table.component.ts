@@ -1,6 +1,4 @@
-
-
-  import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient , HttpHeaders} from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SmsService } from '../services/sms.service';
@@ -11,6 +9,8 @@ import { DbService } from '../services/db.service';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { SqlService } from '../services/sql.service';
 import { UserValidService } from '../services/user-valid.service';
+import { APIService } from '../services/api.service';
+
 
 declare const form_valid:any;
 declare const form_valid1:any;
@@ -26,7 +26,6 @@ const httpOptions = {
 
 };
 
-
 @Component({
   selector: 'app-all-table',
   templateUrl: './all-table.component.html',
@@ -41,6 +40,7 @@ export class AllTableComponent implements OnInit {
   p: number = 1;
 
   constructor(
+    private api:APIService,
     private sql:SqlService,
     private imageCompress:NgxImageCompressService,
     private HTTP:HttpClient,
@@ -78,23 +78,26 @@ export class AllTableComponent implements OnInit {
 
   }
 
-
-
   save()
   {
     let ch=form_valid1("form");
     if(ch){
     let time=this.db.get_date_time();
-    let dd={
-      tname:this.fd.tname,
-      capacity:this.fd.capacity,
-      save_date_tb:time
+    let val_list=[];
+    val_list.push(this.fd.tname,this.fd.capacity);
+    let dd={modal:"table",sub_modal:"add",val_list:val_list};
+    this.api.post_api(dd).subscribe((res)=>{
+      if(res.result=="success")
+      {
+        success_sms_disp("err_status","Record Added Successful",5000);
+        this.load_data_list();
+        this.reset();
 
-     };
-
-    this.sql.add(this.data.tb_name,dd);
-    this.load_data_list();
-    this.reset();
+      }
+      else{
+        error_sms_disp("err_status","Something went wrong",8000);
+      }
+    })
     }
   }
   update()
@@ -108,41 +111,42 @@ export class AllTableComponent implements OnInit {
             if(ch)
             {
               let time=this.db.get_date_time();
-
-              let dd_up={
-                tid:this.data.id_edit,
-                tname:this.fd.tname,
-                capacity:this.fd.capacity,
-                save_date_tb:time
-
-               };
-
-              this.sql.update(this.data.tb_name,dd_up).subscribe((res)=>{
-                this.data.data_list=res;
-                this.reset();
-              });
-            }
+              let val_list=[];
+              val_list.push(this.fd.tname,this.fd.capacity,time);
+              var dd={modal:'table',sub_modal:'update',tid:this.data.id_edit,val_list:val_list};
+              this.api.post_api(dd).subscribe((res)=>{
+                if(res.result=="success")
+                {
+                  success_sms_disp("err_status","Record Updated successful",5000);
+                  this.load_data_list();
+                  this.reset();
+                }
+                else{
+                  error_sms_disp("err_status","Something went wrong",8000);
+                }
+              })
+            };
       }
   }
-  reset(){
-    reset_form("form");
-    this.data.id_edit=0;
-    this.data.del_btn=false;
-    this.data.update_btn=false;
-    this.data.add_btn=true;
+
+reset(){
+  reset_form("form");
+  this.data.id_edit=0;
+  this.data.del_btn=false;
+  this.data.update_btn=false;
+  this.data.add_btn=true;
 
 
-  }
+}
 
 
-  load_data_list()
-  {
-    this.sql.fetch_all(this.data.tb_name).subscribe((result) => {
-
-      this.data.data_list=result;
-    });
-
-  }
+load_data_list()
+{
+  let dd={modal:'table',sub_modal:'fetch_all'};
+  this.api.post_api(dd).subscribe((res)=>{
+  this.data.data_list=res;
+  });
+}
 
 
 edit(id:any)
@@ -175,18 +179,23 @@ edit(id:any)
         .then((result:any)=>{
                   if(result.isConfirmed)
                   {
+                    var dd={modal:'table',sub_modal:'delete',tid:this.data.id_edit};
 
-                    this.sql.delete(this.data.tb_name,id).subscribe((res)=>{
-                      console.log("after delete "+res );
-                      this.data.data_list.splice(i,1);
-                      this.reset();
-                    });
-                    //this.data.data_list.splice(id,1);
-                  }else{
-
+                    this.api.post_api(dd).subscribe((res)=>{
+                      if(res.result=="success")
+                      {
+                        success_sms_disp("err_status","Record Deleted successful",5000);
+                        this.data.data_list.splice(i,1);
+                        this.reset();
+      
+                      }
+                      else{
+                        error_sms_disp("err_status","Something went wrong",8000);
+                      }
+                    })
+                  };
                   }
-           })
-
+        )      
          break;
 
         }
@@ -194,10 +203,4 @@ edit(id:any)
 
 
   }
-
-
-
-
 }
-
-

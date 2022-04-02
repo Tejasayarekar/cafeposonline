@@ -9,6 +9,7 @@ import { DbService } from '../services/db.service';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { SqlService } from '../services/sql.service';
 import { UserValidService } from '../services/user-valid.service';
+import { APIService } from '../services/api.service';
 
 declare const form_valid:any;
 declare const form_valid1:any;
@@ -37,6 +38,7 @@ export class AllAdminComponent implements OnInit {
   p: number = 1;
 
   constructor(
+    private api:APIService,
     private sql:SqlService,
     private imageCompress:NgxImageCompressService,
     private HTTP:HttpClient,
@@ -125,20 +127,21 @@ export class AllAdminComponent implements OnInit {
 
   save()
   {
-    let dd={
-      uname:this.fd.uname,
-      email:this.fd.email,
-      pass:this.fd.pass,
-      type:this.fd.type,
-      acc_menu:JSON.stringify(this.fd.temp_acc_list),
-      acc_add:this.fd.add,
-      acc_edit:this.fd.edit,
-      acc_delete:this.fd.delete,
-     };
+    let val_list=[];
+    val_list.push(this.fd.uname,this.fd.email,this.fd.pass,this.fd.type,this.fd.add,this.fd.edit,this.fd.delete);
+    let dd={modal:'admin',sub_modal:'add',val_list:val_list};
+    this.api.post_api(dd).subscribe((res)=>{
+      if(res.result=="success")
+      {
+        success_sms_disp("err_status","Record added successful",5000);
+        this.load_data_list();
+        this.reset();        
+      }
+      else{
+        error_sms_disp("err_status","Something went wrong",8000);
+      }
+    })   
 
-    this.sql.add(this.data.tb_name,dd);
-    this.load_data_list();
-    this.reset();
   }
   update()
   {
@@ -151,24 +154,25 @@ export class AllAdminComponent implements OnInit {
             if(ch)
             {
               let time=this.db.get_date_time();
-              let dd={
-                aid:this.data.id_edit,
-                uname:this.fd.uname,
-                email:this.fd.email,
-                pass: this.fd.b_pass,
-                type:this.fd.type,
-                acc_menu:JSON.stringify(this.fd.temp_acc_list),
-                acc_add:this.fd.add,
-                acc_edit:this.fd.edit,
-                acc_delete:this.fd.delete,
-               };
-              this.sql.update(this.data.tb_name,dd).subscribe((res)=>{
-                this.data.data_list=res;
-                this.reset();
-              });
+              let val_list=[];
+              val_list.push(this.fd.uname,this.fd.email,this.fd.pass,this.fd.type,this.fd.add,this.fd.edit,this.fd.delete);
+              var dd={modal:'admin',sub_modal:'update',aid:this.data.id_edit,val_list:val_list};
+              this.api.post_api(dd).subscribe((res)=>{
+                if(res.result=="success")
+                {
+                  success_sms_disp("err_status","Record Updated successful",8000);
+                  this.load_data_list();
+                  this.reset();
+
+                }
+                else{
+                  error_sms_disp("err_status","Something went wrong",8000);
+                }
+              })
+              };
             }
       }
-  }
+
   reset(){
     reset_form("form");
     this.data.id_edit=0;
@@ -181,75 +185,73 @@ export class AllAdminComponent implements OnInit {
   }
 
 
-  load_data_list()
+ load_data_list()
   {
-    this.sql.fetch_all(this.data.tb_name).subscribe((result) => {
-      console.log("Admin list is ",result);
-      this.data.data_list=result;
+    let dd={modal:'admin',sub_modal:'fetch_all'};
+    this.api.post_api(dd).subscribe((res)=>{
+      this.data.data_list=res;
     });
-
   }
 
 
 edit(id:any)
 {
-     this.data.id_edit=id;
-     this.data.del_btn=true;
-     this.data.update_btn=true;
-     this.data.add_btn=false;
-      for(let i=0;i<this.data.data_list.length;i++)
-     {
-       if(this.data.data_list[i].aid==id)
-       {
-
-        this.fd.uname=this.data.data_list[i].uname;
-        this.fd.email=this.data.data_list[i].email;
-        this.fd.b_pass=this.data.data_list[i].pass;
-        this.fd.pass=this.data.data_list[i].pass;
-        this.fd.type=this.data.data_list[i].type;
-        this.fd.add=this.data.data_list[i].acc_add;
-        this.fd.edit=this.data.data_list[i].acc_edit;
-        this.fd.delete=this.data.data_list[i].acc_delete;
-        this.fd.temp_acc_list=[];
-        this.fd.temp_acc_list=JSON.parse(this.data.data_list[i].acc_menu);
-         break;
-       }
-     }
-    }
-
-    delete()
+  this.data.id_edit=id;
+  this.data.del_btn=true;
+  this.data.update_btn=true;
+  this.data.add_btn=false;
+  for(let i=0;i<this.data.data_list.length;i++)
+  {
+    if(this.data.data_list[i].aid==id)
     {
-      let id=this.data.id_edit;
-      for(let i=0;i<this.data.data_list.length;i++){
-        if(this.data.data_list[i].aid==id){
 
-         let name=this.data.data_list[i].uname;
-        this.sms.print_confirm("Are Your Sure Want to Delete : "+name+" ? ")
-        .then((result:any)=>{
-                  if(result.isConfirmed)
-                  {
-
-                    this.sql.delete(this.data.tb_name,id).subscribe((res)=>{
-                      console.log("after delete "+res );
-                      this.data.data_list.splice(i,1);
-                      this.reset();
-                    });
-                    //this.data.data_list.splice(id,1);
-                  }else{
-
-                  }
-           })
-
-         break;
-
-        }
+    this.fd.uname=this.data.data_list[i].uname;
+    this.fd.email=this.data.data_list[i].email;
+    this.fd.b_pass=this.data.data_list[i].pass;
+    this.fd.pass=this.data.data_list[i].pass;
+    this.fd.type=this.data.data_list[i].type;
+    this.fd.add=this.data.data_list[i].acc_add;
+    this.fd.edit=this.data.data_list[i].acc_edit;
+    this.fd.delete=this.data.data_list[i].acc_delete;
+    this.fd.temp_acc_list=[];
+    this.fd.temp_acc_list=JSON.parse(this.data.data_list[i].acc_menu);
+      break;
     }
-
-
   }
+}
 
+delete()
+{
+  let id=this.data.id_edit;
+  for(let i=0;i<this.data.data_list.length;i++){
+    if(this.data.data_list[i].aid==id){
 
+      let name=this.data.data_list[i].uname;
+    this.sms.print_confirm("Are Your Sure Want to Delete : "+name+" ? ")
+    .then((result:any)=>{
+              if(result.isConfirmed)
+              {
+                var dd={modal:'admin',sub_modal:'delete',aid:this.data.id_edit};
 
+                    this.api.post_api(dd).subscribe((res)=>{
+                      if(res.result=="success")
+                      {
+                        success_sms_disp("err_status","Record Deleted successful",5000);
+                        this.data.data_list.splice(i,1);
+                        this.reset();
+      
+                      }
+                      else{
+                        error_sms_disp("err_status","Something went wrong",8000);
+                      }
+                    })
+                };
+              }
+    )
+      break;
 
+    }
+}
+  }
 }
 

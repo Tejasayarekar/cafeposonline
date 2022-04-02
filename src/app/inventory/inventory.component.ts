@@ -9,6 +9,7 @@ import { DbService } from '../services/db.service';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { SqlService } from '../services/sql.service';
 import { UserValidService } from '../services/user-valid.service';
+import { APIService } from '../services/api.service';
 
 declare const form_valid:any;
 declare const form_valid1:any;
@@ -34,6 +35,7 @@ export class InventoryComponent implements OnInit {
   p: number = 1;
 
   constructor(
+    private api:APIService,
     private sql:SqlService,
     private imageCompress:NgxImageCompressService,
     private HTTP:HttpClient,
@@ -58,26 +60,26 @@ export class InventoryComponent implements OnInit {
 
   load_product()
   {
-    this.sql.fetch_all(this.data.tb_name).subscribe((result:any) => {
-   this.data.low_stock=[];
-      this.data.out_stock=[];
-
-        for(let i=0;i<result.length;i++)
-        {
-          if(result[i].qty<0){
-            this.data.out_stock.push(result[i]);
-          }else if(result[i].qty>0 && result[i].qty<50){
-            this.data.low_stock.push(result[i]);
-          }
-        }
-
-
-
-
-
-    });
-
-  }
-
-
+    this.data.low_stock=[];
+       this.data.out_stock=[];
+ 
+       let dd={modal:'category',sub_modal:'add',};
+       this.api.post_api(dd).subscribe((res)=>{
+         if(res.result=="success")
+         {
+           success_sms_disp("err_status","Record added successful",8000);
+            // for(let i=0;i<result.length;i++)
+            // {
+            //   if(result[i].qty<0){
+            //     this.data.out_stock.push(result[i]);
+            //   }else if(result[i].qty>0 && result[i].qty<50){
+            //     this.data.low_stock.push(result[i]);
+            //   }
+            // }
+      }
+      else{
+        error_sms_disp("err_status","Something went wrong",8000);
+      }
+    })
+  };
 }
