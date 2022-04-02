@@ -86,7 +86,7 @@ if(ch)
       this.fd.buy_prc,
       this.fd.qty,
       this.fd.code,
-      time);
+      );
     let dd={modal:'product',sub_modal:'add',val_list:val_list};
     this.api.post_api(dd).subscribe((res)=>{
       if(res.result=="success")
